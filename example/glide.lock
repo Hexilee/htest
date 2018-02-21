@@ -1,5 +1,5 @@
 hash: e8cc3d08ee2b5091efc328931a9fe869010be26ce96f7f0c4587117feba59877
-updated: 2018-02-21T20:05:29.256348+08:00
+updated: 2018-02-21T21:47:26.588497+08:00
 imports:
 - name: github.com/labstack/echo
   version: b338075a0fc6e1a0683dbf03d09b4957a289e26f
@@ -31,7 +31,7 @@ testImports:
   subpackages:
   - spew
 - name: github.com/Hexilee/htest
-  version: cf3bf73bda3b53b5ec8ebf874fc49be7f6bdb237
+  version: e9af23966c4f8db78942ed957a0045983dd2a241
 - name: github.com/pmezard/go-difflib
   version: 792786c7400a136282c1664665ae0a8db921c6c2
   subpackages:

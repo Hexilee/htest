@@ -22,8 +22,11 @@ func NewJSON(body []byte, t *testing.T) *JSON {
 }
 
 func (j *JSON) String(key, expect string) *JSON {
-	assert.True(j.T, gjson.GetBytes(j.body, key).Exists())
-	assert.Equal(j.T, gjson.GetBytes(j.body, key).String(), expect)
+	value := gjson.GetBytes(j.body, key)
+	assert.True(j.T, value.Exists())
+	if value.Exists() {
+		assert.Equal(j.T, gjson.GetBytes(j.body, key).String(), expect)
+	}
 	return j
 }
 
