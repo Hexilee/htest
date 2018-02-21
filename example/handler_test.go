@@ -19,6 +19,6 @@ func TestNameHandler(t *testing.T) {
 
 func TestNameHandlerEcho(t *testing.T) {
 	client := htest.NewClient().To(server)
-	body := client.Get("").Send().OK().JSON()
-	body.String("name", "hexi")
+	client.Get("/name").Send().OK().JSON().String("name", "hexi")
+	client.Get("/stuid").Send().OK().JSON().String("stuid", "3160100001")
 }

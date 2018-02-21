@@ -16,6 +16,7 @@ func init() {
 	Mux.HandleFunc("/name", NameHandler)
 	server = echo.New()
 	server.GET("/name", NameHandlerEcho)
+	server.GET("/stuid", StuidHandlerEcho)
 }
 
 func NameHandler(w http.ResponseWriter, req *http.Request) {
@@ -24,4 +25,8 @@ func NameHandler(w http.ResponseWriter, req *http.Request) {
 
 func NameHandlerEcho(c echo.Context) error {
 	return c.String(http.StatusOK, `{"name": "hexi"}`)
+}
+
+func StuidHandlerEcho(c echo.Context) error {
+	return c.String(http.StatusOK, `{"stuid": "3160100001"}`)
 }

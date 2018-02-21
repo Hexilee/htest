@@ -119,7 +119,7 @@ import (
 
 func TestNameHandlerEcho(t *testing.T) {
 	client := htest.NewClient().To(server)
-	body := client.Get("").Send().OK().JSON()
+	body := client.Get("/name").Send().OK().JSON()
 	body.String("name", "hexi")
 }
 ```

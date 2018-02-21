@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"testing"
+	"encoding/json"
 )
 
 type (
@@ -34,4 +35,22 @@ func (r *Response) JSON() *JSON {
 	body, err := ioutil.ReadAll(r.Response.Body)
 	assert.Nil(r.T, err)
 	return NewJSON(body, r.T)
+}
+
+func (r *Response) Bytes() []byte {
+	body, err := ioutil.ReadAll(r.Response.Body)
+	assert.Nil(r.T, err)
+	return body
+}
+
+func (r *Response) String() string {
+	body, err := ioutil.ReadAll(r.Response.Body)
+	assert.Nil(r.T, err)
+	return string(body)
+}
+
+func (r *Response) Bind(obj interface{}) error {
+	body, err := ioutil.ReadAll(r.Response.Body)
+	assert.Nil(r.T, err)
+	return json.Unmarshal(body, obj)
 }

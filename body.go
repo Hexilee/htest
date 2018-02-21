@@ -4,6 +4,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/tidwall/gjson"
 	"testing"
+	"encoding/json"
 )
 
 type (
@@ -20,6 +21,12 @@ func NewJSON(body []byte, t *testing.T) *JSON {
 	}
 }
 
-func (b *JSON) String(key, expect string) {
-	assert.Equal(b.T, gjson.GetBytes(b.body, key).String(), expect)
+func (j *JSON) String(key, expect string) *JSON {
+	assert.True(j.T, gjson.GetBytes(j.body, key).Exists())
+	assert.Equal(j.T, gjson.GetBytes(j.body, key).String(), expect)
+	return j
+}
+
+func (j *JSON) Bind(obj interface{}) error {
+	return json.Unmarshal(j.body, obj)
 }
