@@ -21,6 +21,11 @@ func NewResponse(response *http.Response) *Response {
 	}
 }
 
+func (r *Response) With(t *testing.T) *Response {
+	r.T = t
+	return r
+}
+
 func (r *Response) OK() *Response {
 	assert.Equal(r.T, http.StatusOK, r.StatusCode)
 	return r

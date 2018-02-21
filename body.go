@@ -40,10 +40,8 @@ func (j *JSON) NotExist(key string) *JSON {
 }
 
 func (j *JSON) String(key, expect string) *JSON {
-	result, exist := j.GetJSON(key)
-	if exist {
-		assert.Equal(j.T, result.String(), expect)
-	}
+	result, _ := j.GetJSON(key)
+	assert.Equal(j.T, result.String(), expect)
 	return j
 }
 
