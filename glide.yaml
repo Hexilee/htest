@@ -1,0 +1,8 @@
+package: github.com/Hexilee/htest
+import:
+- package: github.com/tidwall/gjson
+  version: ^1.0.6
+- package: github.com/stretchr/testify
+  version: ^1.2.1
+  subpackages:
+  - assert

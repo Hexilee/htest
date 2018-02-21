@@ -1,0 +1,4 @@
+vendor/
+example/example
+*.coverprofile
+coverage.*
