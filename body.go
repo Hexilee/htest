@@ -1,10 +1,10 @@
 package htest
 
 import (
+	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"github.com/tidwall/gjson"
 	"testing"
-	"encoding/json"
 )
 
 type (
@@ -21,11 +21,28 @@ func NewJSON(body []byte, t *testing.T) *JSON {
 	}
 }
 
+func (j *JSON) GetJSON(key string) (result gjson.Result, exist bool) {
+	result = gjson.GetBytes(j.body, key)
+	exist = result.Exists()
+	return
+}
+
+func (j *JSON) Exist(key string) *JSON {
+	_, exist := j.GetJSON(key)
+	assert.True(j.T, exist)
+	return j
+}
+
+func (j *JSON) NotExist(key string) *JSON {
+	_, exist := j.GetJSON(key)
+	assert.False(j.T, exist)
+	return j
+}
+
 func (j *JSON) String(key, expect string) *JSON {
-	value := gjson.GetBytes(j.body, key)
-	assert.True(j.T, value.Exists())
-	if value.Exists() {
-		assert.Equal(j.T, gjson.GetBytes(j.body, key).String(), expect)
+	result, exist := j.GetJSON(key)
+	if exist {
+		assert.Equal(j.T, result.String(), expect)
 	}
 	return j
 }

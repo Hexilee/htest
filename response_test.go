@@ -1,10 +1,8 @@
 package htest
 
-import "testing"
-
 type (
 	User struct {
-		Id uint
+		Id   uint
 		Name string
 	}
 )
@@ -15,7 +13,3 @@ const (
 	"name": "hexi"
 }`
 )
-
-func TestJSON_Bind(t *testing.T) {
-
-}

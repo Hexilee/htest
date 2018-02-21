@@ -1,11 +1,11 @@
 package htest
 
 import (
+	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
 	"testing"
-	"encoding/json"
 )
 
 type (
