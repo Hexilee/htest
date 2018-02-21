@@ -1,0 +1,32 @@
+language: go # 声明构建语言环境
+sudo: false # 开启基于容器的Travis CI任务，让编译效率更高。
+
+notifications: # 每次构建的时候是否通知，如果不想收到通知，那就设置false吧(email: false)
+  email:
+    recipients:
+      - hexileee@gmail.com
+  on_success: change
+  on_failure: always
+
+go:
+  - 1.8
+  - 1.9
+  - 1.10
+
+install:
+  - go get -u github.com/Masterminds/glide
+  - glide install
+  - go get github.com/mattn/goveralls
+
+script: # 集成脚本
+  - go test -v -cover -coverprofile=htest.coverprofile
+  - goveralls -coverprofile=htest.coverprofile -service=travis-ci -repotoken $COVERALLS_TOKEN
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+env: #env环境变量设置，travis提供的repo_token安全方式
+  global:
+    secure: "X4T6trO9itxvEDvLNQ3hbmSTRaJOWVreX3EwHaG7Pq6NKw3oZjl+07x4cxIpvxhjLWYlwyAjm28gnjO7QOvcFU/2ZElqDFSw6gXCStrvf+OGALsB9p8jR8DDFYGu3Zcum599EcFl4WpPbptGqWCF3foFfGPH3EgZOynSuW/AAeQ3ln3y4HxLUCGtTSCjTOKv1iKzVjgDJqBTX8LIzYPIjYOJjhnSTLkZmgWqewp1pKC8Teya+qLMry+6U/uEkN0502RtoOXNZANgtH53SFlFX+FQdcMYQzTGsXJ8yvQSQrOPjbHVS+lWw2EW95N9qjpjkPKk35+f2ndDPXN/CQtanMFehdzj5fBvuBSKxsQrA+3W5aWeS3xlrtUusBhI7UIzd9vG7WoifXmxCoEwYNO+RnIGB7t2OB6+6QxyHr7d7QU1lx17aHUUegs/2SQG6lGcRVO2B1QonmebHisVGm+MJqW8awT3tiuNmOW82i5sWkGsmSDH8XgT5VpejSrtBgNc/KaOgesu+HTEECZQmBQJAKzcVsbXht1x6SFtqBGYa5yEI4t8pUb88auD7aNpbwhp9WQ1luImDbdwv9/ZNE0cdqV1g/wFMMh/vz1IbJsOqxBb25yTq7s4xPEHC/Y494ts+4CebE01kC4rc+bnwpMvxmwqsChFip3p7bkPgJRnzEc="
+
+
