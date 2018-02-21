@@ -1,4 +1,4 @@
 vendor/
-example/example
+example/vendor/
 *.coverprofile
 coverage.*

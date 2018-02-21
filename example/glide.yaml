@@ -1,0 +1,12 @@
+package: github.com/Hexilee/htest/example
+import:
+- package: github.com/labstack/echo
+  version: ^3.2.6
+- package: github.com/labstack/gommon
+  version: ^0.2.3
+  subpackages:
+  - color
+  - log
+- package: golang.org/x/crypto
+  subpackages:
+  - acme/autocert
