@@ -2,6 +2,8 @@ package htest
 
 import (
 	"github.com/stretchr/testify/assert"
+	"io"
+	"net/http"
 	"testing"
 )
 
@@ -16,4 +18,8 @@ func TestJSON_Bind(t *testing.T) {
 	client.Get("/body/user").Send().With(t).OK().JSON().Bind(user)
 	assert.Equal(t, user.Id, uint(1))
 	assert.Equal(t, user.Name, "hexi")
+}
+
+func UserDataHandler(w http.ResponseWriter, req *http.Request) {
+	io.WriteString(w, UserData)
 }

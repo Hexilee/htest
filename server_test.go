@@ -3,31 +3,21 @@ package htest
 import (
 	"io"
 	"net/http"
+	"github.com/go-chi/chi"
 )
 
 var (
-	Mux *http.ServeMux
+	Mux *chi.Mux
 )
 
 func init() {
-	Mux = http.NewServeMux()
-	Mux.HandleFunc("/name", NameHandler)
-	Mux.HandleFunc("/request/header", HeaderHandler)
-	Mux.HandleFunc("/body/user", UserDataHandler)
+	Mux = chi.NewRouter()
+	Mux.Get("/name", NameHandler)
+	Mux.Head("/name", NameHandler)
+	Mux.Get("/request/header", HeaderHandler)
+	Mux.Get("/body/user", UserDataHandler)
 }
 
 func NameHandler(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, `{"name": "hexi"}`)
-}
-
-func HeaderHandler(w http.ResponseWriter, req *http.Request) {
-	if req.Header.Get(HeaderContentType) == MIMEApplicationJSON {
-		io.WriteString(w, `{"result": "JSON"}`)
-		return
-	}
-	http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
-}
-
-func UserDataHandler(w http.ResponseWriter, req *http.Request) {
-	io.WriteString(w, UserData)
 }

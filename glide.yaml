@@ -6,3 +6,5 @@ import:
   version: ^1.2.1
   subpackages:
   - assert
+- package: github.com/go-chi/chi
+  version: ^3.3.2
