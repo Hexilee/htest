@@ -14,14 +14,14 @@ func NewClient() *Client {
 	return &Client{}
 }
 
-func (c *Client) To(handler http.Handler) *Client {
+func (c Client) To(handler http.Handler) *Client {
 	c.handler = handler
-	return c
+	return &c
 }
 
-func (c *Client) ToFunc(handlerFunc http.HandlerFunc) *Client {
+func (c Client) ToFunc(handlerFunc http.HandlerFunc) *Client {
 	c.handler = handlerFunc
-	return c
+	return &c
 }
 
 func (c Client) NewRequest(req *http.Request) *Request {
@@ -31,7 +31,7 @@ func (c Client) NewRequest(req *http.Request) *Request {
 	}
 }
 
-func (c *Client) Get(path string) *Request {
+func (c Client) Get(path string) *Request {
 	req, _ := http.NewRequest(GET, path, nil)
 	return c.NewRequest(req)
 }
