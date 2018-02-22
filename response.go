@@ -229,6 +229,167 @@ func (r *Response) Bind(obj interface{}) error {
 	return json.Unmarshal(body, obj)
 }
 
-func (r *Response) Headers(key, expect string) {
+func (r *Response) Headers(key, expect string) *Response {
 	assert.Equal(r.T, expect, r.Header.Get(key))
+	return r
+}
+
+func (r *Response) HeaderAccept(expect string) *Response {
+	return r.Headers(HeaderAccept, expect)
+}
+
+func (r *Response) HeaderAcceptEncoding(expect string) *Response {
+	return r.Headers(HeaderAcceptEncoding, expect)
+}
+
+func (r *Response) HeaderAllow(expect string) *Response {
+	return r.Headers(HeaderAllow, expect)
+}
+
+func (r *Response) HeaderAuthorization(expect string) *Response {
+	return r.Headers(HeaderAuthorization, expect)
+}
+
+func (r *Response) HeaderContentDisposition(expect string) *Response {
+	return r.Headers(HeaderContentDisposition, expect)
+}
+
+func (r *Response) HeaderContentEncoding(expect string) *Response {
+	return r.Headers(HeaderContentEncoding, expect)
+}
+
+func (r *Response) HeaderContentLength(expect string) *Response {
+	return r.Headers(HeaderContentLength, expect)
+}
+
+func (r *Response) HeaderContentType(expect string) *Response {
+	return r.Headers(HeaderContentType, expect)
+}
+
+func (r *Response) HeaderCookie(expect string) *Response {
+	return r.Headers(HeaderCookie, expect)
+}
+
+func (r *Response) HeaderSetCookie(expect string) *Response {
+	return r.Headers(HeaderSetCookie, expect)
+}
+
+func (r *Response) HeaderIfModifiedSince(expect string) *Response {
+	return r.Headers(HeaderIfModifiedSince, expect)
+}
+
+func (r *Response) HeaderLastModified(expect string) *Response {
+	return r.Headers(HeaderLastModified, expect)
+}
+
+func (r *Response) HeaderLocation(expect string) *Response {
+	return r.Headers(HeaderLocation, expect)
+}
+
+func (r *Response) HeaderUpgrade(expect string) *Response {
+	return r.Headers(HeaderUpgrade, expect)
+}
+
+func (r *Response) HeaderVary(expect string) *Response {
+	return r.Headers(HeaderVary, expect)
+}
+
+func (r *Response) HeaderWWWAuthenticate(expect string) *Response {
+	return r.Headers(HeaderWWWAuthenticate, expect)
+}
+
+func (r *Response) HeaderXForwardedFor(expect string) *Response {
+	return r.Headers(HeaderXForwardedFor, expect)
+}
+
+func (r *Response) HeaderXForwardedProto(expect string) *Response {
+	return r.Headers(HeaderXForwardedProto, expect)
+}
+
+func (r *Response) HeaderXForwardedProtocol(expect string) *Response {
+	return r.Headers(HeaderXForwardedProtocol, expect)
+}
+
+func (r *Response) HeaderXForwardedSsl(expect string) *Response {
+	return r.Headers(HeaderXForwardedSsl, expect)
+}
+
+func (r *Response) HeaderXUrlScheme(expect string) *Response {
+	return r.Headers(HeaderXUrlScheme, expect)
+}
+
+func (r *Response) HeaderXHTTPMethodOverride(expect string) *Response {
+	return r.Headers(HeaderXHTTPMethodOverride, expect)
+}
+
+func (r *Response) HeaderXRealIP(expect string) *Response {
+	return r.Headers(HeaderXRealIP, expect)
+}
+
+func (r *Response) HeaderXRequestID(expect string) *Response {
+	return r.Headers(HeaderXRequestID, expect)
+}
+
+func (r *Response) HeaderServer(expect string) *Response {
+	return r.Headers(HeaderServer, expect)
+}
+
+func (r *Response) HeaderOrigin(expect string) *Response {
+	return r.Headers(HeaderOrigin, expect)
+}
+
+func (r *Response) HeaderAccessControlRequestMethod(expect string) *Response {
+	return r.Headers(HeaderAccessControlRequestMethod, expect)
+}
+
+func (r *Response) HeaderAccessControlRequestHeaders(expect string) *Response {
+	return r.Headers(HeaderAccessControlRequestHeaders, expect)
+}
+
+func (r *Response) HeaderAccessControlAllowOrigin(expect string) *Response {
+	return r.Headers(HeaderAccessControlAllowOrigin, expect)
+}
+
+func (r *Response) HeaderAccessControlAllowMethods(expect string) *Response {
+	return r.Headers(HeaderAccessControlAllowMethods, expect)
+}
+
+func (r *Response) HeaderAccessControlAllowHeaders(expect string) *Response {
+	return r.Headers(HeaderAccessControlAllowHeaders, expect)
+}
+
+func (r *Response) HeaderAccessControlAllowCredentials(expect string) *Response {
+	return r.Headers(HeaderAccessControlAllowCredentials, expect)
+}
+
+func (r *Response) HeaderAccessControlExposeHeaders(expect string) *Response {
+	return r.Headers(HeaderAccessControlExposeHeaders, expect)
+}
+
+func (r *Response) HeaderAccessControlMaxAge(expect string) *Response {
+	return r.Headers(HeaderAccessControlMaxAge, expect)
+}
+
+func (r *Response) HeaderStrictTransportSecurity(expect string) *Response {
+	return r.Headers(HeaderStrictTransportSecurity, expect)
+}
+
+func (r *Response) HeaderXContentTypeOptions(expect string) *Response {
+	return r.Headers(HeaderXContentTypeOptions, expect)
+}
+
+func (r *Response) HeaderXXSSProtection(expect string) *Response {
+	return r.Headers(HeaderXXSSProtection, expect)
+}
+
+func (r *Response) HeaderXFrameOptions(expect string) *Response {
+	return r.Headers(HeaderXFrameOptions, expect)
+}
+
+func (r *Response) HeaderContentSecurityPolicy(expect string) *Response {
+	return r.Headers(HeaderContentSecurityPolicy, expect)
+}
+
+func (r *Response) HeaderXCSRFToken(expect string) *Response {
+	return r.Headers(HeaderXCSRFToken, expect)
 }

@@ -357,6 +357,246 @@ func TestResponse_StatusNetworkAuthenticationRequired(t *testing.T) {
 	client.Get(fmt.Sprintf("/response/statusCode/%d", http.StatusNetworkAuthenticationRequired)).Send().StatusNetworkAuthenticationRequired()
 }
 
+func TestResponse_HeaderAccept(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccept, "htest")
+	client.Get(url).Send().HeaderAccept("htest")
+}
+
+func TestResponse_HeaderAcceptEncoding(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAcceptEncoding, "htest")
+	client.Get(url).Send().HeaderAcceptEncoding("htest")
+}
+
+func TestResponse_HeaderAllow(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAllow, "htest")
+	client.Get(url).Send().HeaderAllow("htest")
+}
+
+func TestResponse_HeaderAuthorization(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAuthorization, "htest")
+	client.Get(url).Send().HeaderAuthorization("htest")
+}
+
+func TestResponse_HeaderContentDisposition(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderContentDisposition, "htest")
+	client.Get(url).Send().HeaderContentDisposition("htest")
+}
+
+func TestResponse_HeaderContentEncoding(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderContentEncoding, "htest")
+	client.Get(url).Send().HeaderContentEncoding("htest")
+}
+
+func TestResponse_HeaderContentLength(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderContentLength, "htest")
+	client.Get(url).Send().HeaderContentLength("htest")
+}
+
+func TestResponse_HeaderContentType(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderContentType, "htest")
+	client.Get(url).Send().HeaderContentType("htest")
+}
+
+func TestResponse_HeaderCookie(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderCookie, "htest")
+	client.Get(url).Send().HeaderCookie("htest")
+}
+
+func TestResponse_HeaderSetCookie(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderSetCookie, "htest")
+	client.Get(url).Send().HeaderSetCookie("htest")
+}
+
+func TestResponse_HeaderIfModifiedSince(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderIfModifiedSince, "htest")
+	client.Get(url).Send().HeaderIfModifiedSince("htest")
+}
+
+func TestResponse_HeaderLastModified(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderLastModified, "htest")
+	client.Get(url).Send().HeaderLastModified("htest")
+}
+
+func TestResponse_HeaderLocation(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderLocation, "htest")
+	client.Get(url).Send().HeaderLocation("htest")
+}
+
+func TestResponse_HeaderUpgrade(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderUpgrade, "htest")
+	client.Get(url).Send().HeaderUpgrade("htest")
+}
+
+func TestResponse_HeaderVary(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderVary, "htest")
+	client.Get(url).Send().HeaderVary("htest")
+}
+
+func TestResponse_HeaderWWWAuthenticate(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderWWWAuthenticate, "htest")
+	client.Get(url).Send().HeaderWWWAuthenticate("htest")
+}
+
+func TestResponse_HeaderXForwardedFor(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXForwardedFor, "htest")
+	client.Get(url).Send().HeaderXForwardedFor("htest")
+}
+
+func TestResponse_HeaderXForwardedProto(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXForwardedProto, "htest")
+	client.Get(url).Send().HeaderXForwardedProto("htest")
+}
+
+func TestResponse_HeaderXForwardedProtocol(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXForwardedProtocol, "htest")
+	client.Get(url).Send().HeaderXForwardedProtocol("htest")
+}
+
+func TestResponse_HeaderXForwardedSsl(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXForwardedSsl, "htest")
+	client.Get(url).Send().HeaderXForwardedSsl("htest")
+}
+
+func TestResponse_HeaderXUrlScheme(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXUrlScheme, "htest")
+	client.Get(url).Send().HeaderXUrlScheme("htest")
+}
+
+func TestResponse_HeaderXHTTPMethodOverride(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXHTTPMethodOverride, "htest")
+	client.Get(url).Send().HeaderXHTTPMethodOverride("htest")
+}
+
+func TestResponse_HeaderXRealIP(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXRealIP, "htest")
+	client.Get(url).Send().HeaderXRealIP("htest")
+}
+
+func TestResponse_HeaderXRequestID(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXRequestID, "htest")
+	client.Get(url).Send().HeaderXRequestID("htest")
+}
+
+func TestResponse_HeaderServer(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderServer, "htest")
+	client.Get(url).Send().HeaderServer("htest")
+}
+
+func TestResponse_HeaderOrigin(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderOrigin, "htest")
+	client.Get(url).Send().HeaderOrigin("htest")
+}
+
+func TestResponse_HeaderAccessControlRequestMethod(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccessControlRequestMethod, "htest")
+	client.Get(url).Send().HeaderAccessControlRequestMethod("htest")
+}
+
+func TestResponse_HeaderAccessControlRequestHeaders(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccessControlRequestHeaders, "htest")
+	client.Get(url).Send().HeaderAccessControlRequestHeaders("htest")
+}
+
+func TestResponse_HeaderAccessControlAllowOrigin(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccessControlAllowOrigin, "htest")
+	client.Get(url).Send().HeaderAccessControlAllowOrigin("htest")
+}
+
+func TestResponse_HeaderAccessControlAllowMethods(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccessControlAllowMethods, "htest")
+	client.Get(url).Send().HeaderAccessControlAllowMethods("htest")
+}
+
+func TestResponse_HeaderAccessControlAllowHeaders(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccessControlAllowHeaders, "htest")
+	client.Get(url).Send().HeaderAccessControlAllowHeaders("htest")
+}
+
+func TestResponse_HeaderAccessControlAllowCredentials(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccessControlAllowCredentials, "htest")
+	client.Get(url).Send().HeaderAccessControlAllowCredentials("htest")
+}
+
+func TestResponse_HeaderAccessControlExposeHeaders(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccessControlExposeHeaders, "htest")
+	client.Get(url).Send().HeaderAccessControlExposeHeaders("htest")
+}
+
+func TestResponse_HeaderAccessControlMaxAge(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderAccessControlMaxAge, "htest")
+	client.Get(url).Send().HeaderAccessControlMaxAge("htest")
+}
+
+func TestResponse_HeaderStrictTransportSecurity(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderStrictTransportSecurity, "htest")
+	client.Get(url).Send().HeaderStrictTransportSecurity("htest")
+}
+
+func TestResponse_HeaderXContentTypeOptions(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXContentTypeOptions, "htest")
+	client.Get(url).Send().HeaderXContentTypeOptions("htest")
+}
+
+func TestResponse_HeaderXXSSProtection(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXXSSProtection, "htest")
+	client.Get(url).Send().HeaderXXSSProtection("htest")
+}
+
+func TestResponse_HeaderXFrameOptions(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXFrameOptions, "htest")
+	client.Get(url).Send().HeaderXFrameOptions("htest")
+}
+
+func TestResponse_HeaderContentSecurityPolicy(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderContentSecurityPolicy, "htest")
+	client.Get(url).Send().HeaderContentSecurityPolicy("htest")
+}
+
+func TestResponse_HeaderXCSRFToken(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderXCSRFToken, "htest")
+	client.Get(url).Send().HeaderXCSRFToken("htest")
+}
+
 func StatusHandler(w http.ResponseWriter, req *http.Request) {
 	codeStr := chi.URLParam(req, "code")
 	code, err := strconv.Atoi(codeStr)
