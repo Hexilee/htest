@@ -34,8 +34,8 @@ import (
 )
 
 func TestNameHandlerFunc(t *testing.T) {
-	client := htest.NewClient().ToFunc(NameHandler)
-	body := client.Get("").Send().OK().JSON()
+	client := htest.NewClient(t).ToFunc(NameHandler)
+	body := client.Get("").Send().StatusOK().JSON()
 	body.String("name", "hexi")
 }
 ```
@@ -77,8 +77,8 @@ import (
 )
 
 func TestNameHandler(t *testing.T) {
-	client := htest.NewClient().To(Mux)
-	body := client.Get("/name").Send().OK().JSON()
+	client := htest.NewClient(t).To(Mux)
+	body := client.Get("/name").Send().StatusOK().JSON()
 	body.String("name", "hexi")
 }
 ```
@@ -118,8 +118,7 @@ import (
 )
 
 func TestNameHandlerEcho(t *testing.T) {
-	client := htest.NewClient().To(server)
-	body := client.Get("/name").Send().OK().JSON()
-	body.String("name", "hexi")
+	client := htest.NewClient(t).To(server)
+	client.Get("/name").Send().StatusOK().JSON().String("name", "hexi")
 }
 ```

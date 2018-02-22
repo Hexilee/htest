@@ -6,19 +6,19 @@ import (
 )
 
 func TestNameHandlerFunc(t *testing.T) {
-	client := htest.NewClient().ToFunc(NameHandler)
-	body := client.Get("").Send().With(t).OK().JSON()
+	client := htest.NewClient(t).ToFunc(NameHandler)
+	body := client.Get("").Send().StatusOK().JSON()
 	body.String("name", "hexi")
 }
 
 func TestNameHandler(t *testing.T) {
-	client := htest.NewClient().To(Mux)
-	body := client.Get("/name").Send().With(t).OK().JSON()
+	client := htest.NewClient(t).To(Mux)
+	body := client.Get("/name").Send().StatusOK().JSON()
 	body.String("name", "hexi")
 }
 
 func TestNameHandlerEcho(t *testing.T) {
-	client := htest.NewClient().To(server)
-	client.Get("/name").Send().With(t).OK().JSON().String("name", "hexi")
-	client.Get("/stuid").Send().With(t).OK().JSON().String("stuid", "3160100001")
+	client := htest.NewClient(t).To(server)
+	client.Get("/name").Send().StatusOK().JSON().String("name", "hexi")
+	client.Get("/stuid").Send().StatusOK().JSON().String("stuid", "3160100001")
 }
