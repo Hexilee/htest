@@ -1,8 +1,8 @@
 package htest
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestClient_ToFunc(t *testing.T) {
