@@ -3,12 +3,14 @@ package htest
 import (
 	"net/http"
 	"net/http/httptest"
+	"testing"
 )
 
 type (
 	Request struct {
 		*http.Request
 		Handler http.Handler
+		*testing.T
 	}
 )
 
@@ -28,5 +30,5 @@ func (r *Request) SetHeaders(headers map[string]string) *Request {
 func (r *Request) Send() *Response {
 	recorder := httptest.NewRecorder()
 	r.Handler.ServeHTTP(recorder, r.Request)
-	return NewResponse(recorder.Result())
+	return NewResponse(recorder.Result(), r.T)
 }

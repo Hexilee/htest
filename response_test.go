@@ -20,19 +20,19 @@ const (
 )
 
 func TestResponse_String(t *testing.T) {
-	client := NewClient().To(Mux)
-	assert.Equal(t, UserData, client.Get("/body/user").Send().With(t).OK().String())
+	client := NewClient(t).To(Mux)
+	assert.Equal(t, UserData, client.Get("/body/user").Send().OK().String())
 }
 
 func TestResponse_Bytes(t *testing.T) {
-	client := NewClient().To(Mux)
-	assert.Equal(t, []byte(UserData), client.Get("/body/user").Send().With(t).OK().Bytes())
+	client := NewClient(t).To(Mux)
+	assert.Equal(t, []byte(UserData), client.Get("/body/user").Send().OK().Bytes())
 }
 
 func TestResponse_Bind(t *testing.T) {
 	user := new(User)
-	client := NewClient().To(Mux)
-	client.Get("/body/user").Send().With(t).OK().Bind(user)
+	client := NewClient(t).To(Mux)
+	client.Get("/body/user").Send().OK().Bind(user)
 	assert.Equal(t, user.Id, uint(1))
 	assert.Equal(t, user.Name, "hexi")
 }

@@ -15,15 +15,11 @@ type (
 	}
 )
 
-func NewResponse(response *http.Response) *Response {
+func NewResponse(response *http.Response, t *testing.T) *Response {
 	return &Response{
 		Response: response,
+		T:        t,
 	}
-}
-
-func (r *Response) With(t *testing.T) *Response {
-	r.T = t
-	return r
 }
 
 func (r *Response) OK() *Response {

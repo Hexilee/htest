@@ -1,18 +1,21 @@
 package htest
 
 import (
+	"github.com/stretchr/testify/assert"
 	"io"
 	"net/http"
+	"testing"
 )
 
 type (
 	Client struct {
 		handler http.Handler
+		*testing.T
 	}
 )
 
-func NewClient() *Client {
-	return &Client{}
+func NewClient(t *testing.T) *Client {
+	return &Client{T: t}
 }
 
 func (c Client) To(handler http.Handler) *Client {
@@ -29,11 +32,13 @@ func (c Client) NewRequest(req *http.Request) *Request {
 	return &Request{
 		Request: req,
 		Handler: c.handler,
+		T:       c.T,
 	}
 }
 
 func (c Client) request(method, path string, body io.Reader) *Request {
-	req, _ := http.NewRequest(method, path, body)
+	req, err := http.NewRequest(method, path, body)
+	assert.Nil(c.T, err)
 	return c.NewRequest(req)
 }
 
