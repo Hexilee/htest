@@ -228,3 +228,7 @@ func (r *Response) Bind(obj interface{}) error {
 	assert.Nil(r.T, err)
 	return json.Unmarshal(body, obj)
 }
+
+func (r *Response) Headers(key, expect string) {
+	assert.Equal(r.T, expect, r.Header.Get(key))
+}

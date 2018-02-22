@@ -24,11 +24,13 @@ const (
 )
 
 var (
-	ResponseCodeServer = chi.NewRouter()
+	ResponseCodeServer    = chi.NewRouter()
+	ResponseHeadersServer = chi.NewRouter()
 )
 
 func init() {
 	ResponseCodeServer.Get("/response/statusCode/{code}", StatusHandler)
+	ResponseHeadersServer.Get("/response/headers", HeadersHandler)
 }
 
 func TestResponse_String(t *testing.T) {
@@ -52,6 +54,12 @@ func TestResponse_Bind(t *testing.T) {
 func TestResponse_Code(t *testing.T) {
 	client := NewClient(t).To(ResponseCodeServer)
 	client.Get(fmt.Sprintf("/response/statusCode/%d", http.StatusBadRequest)).Send().Code(http.StatusBadRequest)
+}
+
+func TestResponse_Headers(t *testing.T) {
+	client := NewClient(t).To(ResponseHeadersServer)
+	url := fmt.Sprintf("/response/headers?header=%s&value=%s", HeaderContentType, MIMEApplicationJSON)
+	client.Get(url).Send().Headers(HeaderContentType, MIMEApplicationJSON)
 }
 
 func TestResponse_StatusContinue(t *testing.T) {
@@ -353,7 +361,14 @@ func StatusHandler(w http.ResponseWriter, req *http.Request) {
 	codeStr := chi.URLParam(req, "code")
 	code, err := strconv.Atoi(codeStr)
 	if err != nil {
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		w.WriteHeader(http.StatusNotFound)
 	}
-	http.Error(w, http.StatusText(code), code)
+	w.WriteHeader(code)
+}
+
+func HeadersHandler(w http.ResponseWriter, req *http.Request) {
+	query := req.URL.Query()
+	header := query.Get("header")
+	value := query.Get("value")
+	w.Header().Set(header, value)
 }
