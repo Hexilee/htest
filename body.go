@@ -9,6 +9,7 @@ import (
 	"github.com/tidwall/gjson"
 	"io/ioutil"
 	"testing"
+	"time"
 )
 
 type (
@@ -59,7 +60,43 @@ func (j *JSON) NotExist(key string) *JSON {
 
 func (j *JSON) String(key, expect string) *JSON {
 	result, _ := j.GetKey(key)
-	assert.Equal(j.T, result.String(), expect)
+	assert.Equal(j.T, expect, result.String())
+	return j
+}
+
+func (j *JSON) Int(key string, expect int64) *JSON {
+	result, _ := j.GetKey(key)
+	assert.Equal(j.T, expect, result.Int())
+	return j
+}
+
+func (j *JSON) True(key string) *JSON {
+	result, _ := j.GetKey(key)
+	assert.True(j.T, result.Bool())
+	return j
+}
+
+func (j *JSON) False(key string) *JSON {
+	result, _ := j.GetKey(key)
+	assert.False(j.T, result.Bool())
+	return j
+}
+
+func (j *JSON) Uint(key string, expect uint64) *JSON {
+	result, _ := j.GetKey(key)
+	assert.Equal(j.T, expect, result.Uint())
+	return j
+}
+
+func (j *JSON) Time(key string, expect time.Time) *JSON {
+	result, _ := j.GetKey(key)
+	assert.Equal(j.T, expect, result.Time())
+	return j
+}
+
+func (j *JSON) Float(key string, expect float64) *JSON {
+	result, _ := j.GetKey(key)
+	assert.Equal(j.T, expect, result.Float())
 	return j
 }
 
