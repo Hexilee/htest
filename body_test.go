@@ -34,8 +34,24 @@ func TestXML_Exist(t *testing.T) {
 	client.Get("/xml_body/user").Send().StatusOK().XML().Exist("user.name").NotExist("user.stuid")
 }
 
-func TestWrongXML_Exist(t *testing.T) {
-	NewXML([]byte(WrongXMLData), t).Empty()
+func TestJSON_NotEmpty(t *testing.T) {
+	NewXML([]byte(UserDataXML), t).JSON.NotEmpty()
+}
+
+func TestXML_String(t *testing.T) {
+	NewXML([]byte(UserDataXML), t).String("user.name", "hexi")
+}
+
+func TestXML_Empty(t *testing.T) {
+	NewXML([]byte(""), t).Empty()
+}
+
+func TestXML_NotEmpty(t *testing.T) {
+	NewXML([]byte(WrongXMLData), t).NotEmpty()
+}
+
+func TestWrongXML_JSON_Empty(t *testing.T) {
+	NewXML([]byte(WrongXMLData), t).JSON.Empty()
 }
 
 func TestXML_Bind(t *testing.T) {

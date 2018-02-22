@@ -69,12 +69,46 @@ func (j *JSON) Empty() *JSON {
 	return j
 }
 
+func (j *JSON) NotEmpty() *JSON {
+	body := bytes.Trim(j.Body(), "\"\n")
+	assert.NotEqual(j.T, "", string(body))
+	return j
+}
+
 func (j *JSON) Body() []byte {
 	return j.body
 }
 
 func (j *JSON) Bind(obj interface{}) error {
 	return json.Unmarshal(j.body, obj)
+}
+
+func (x *XML) Exist(key string) *XML {
+	x.JSON.Exist(key)
+	return x
+}
+
+func (x *XML) NotExist(key string) *XML {
+	x.JSON.NotExist(key)
+	return x
+}
+func (x *XML) String(key, expect string) *XML {
+	x.JSON.String(key, expect)
+	return x
+}
+
+func (x *XML) Empty() *XML {
+	assert.Equal(x.T, "", string(x.Body()))
+	return x
+}
+
+func (x *XML) NotEmpty() *XML {
+	assert.NotEqual(x.T, "", string(x.Body()))
+	return x
+}
+
+func (x *XML) Body() []byte {
+	return x.body
 }
 
 func (x *XML) Bind(obj interface{}) error {
