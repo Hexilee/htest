@@ -11,8 +11,8 @@ import (
 
 type (
 	User struct {
-		Id   uint
-		Name string
+		Id   uint   `xml:"id"`
+		Name string `xml:"name"`
 	}
 )
 
@@ -21,6 +21,13 @@ const (
 	"id": 1,
 	"name": "hexi"
 }`
+	UserDataXML = `
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+	<id>1</id>
+	<name>hexi</name>
+</user>
+`
 )
 
 var (

@@ -25,6 +25,7 @@ func init() {
 	Mux.Post("/client/patch", ClientDataHandler)
 	Mux.Get("/request/header", HeaderHandler)
 	Mux.Get("/body/user", UserDataHandler)
+	Mux.Get("/xml_body/user", UserDataXMLHandler)
 }
 
 func NameHandler(w http.ResponseWriter, req *http.Request) {

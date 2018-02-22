@@ -211,6 +211,12 @@ func (r *Response) JSON() *JSON {
 	return NewJSON(body, r.T)
 }
 
+func (r *Response) XML() *XML {
+	body, err := ioutil.ReadAll(r.Response.Body)
+	assert.Nil(r.T, err)
+	return NewXML(body, r.T)
+}
+
 func (r *Response) Bytes() []byte {
 	body, err := ioutil.ReadAll(r.Response.Body)
 	assert.Nil(r.T, err)
