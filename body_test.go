@@ -33,7 +33,7 @@ var (
 
 func TestJSON_Exist(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Get("/name").Send().StatusOK().JSON().Exist("name").NotExist("stuid")
+	client.Get("/name").Test().StatusOK().JSON().Exist("name").NotExist("stuid")
 }
 
 func TestJSON_String(t *testing.T) {
@@ -67,7 +67,7 @@ func TestJSON_Float(t *testing.T) {
 func TestJSON_Bind(t *testing.T) {
 	user := new(User)
 	client := NewClient(t).To(Mux)
-	client.Get("/body/user").Send().StatusOK().JSON().Bind(user)
+	client.Get("/body/user").Test().StatusOK().JSON().Bind(user)
 	assert.Equal(t, user.Id, uint(1))
 	assert.Equal(t, user.Name, "hexi")
 }
@@ -78,7 +78,7 @@ func TestJSON_NotEmpty(t *testing.T) {
 
 func TestXML_Exist(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Get("/xml_body/user").Send().StatusOK().XML().Exist("user.name").NotExist("user.stuid")
+	client.Get("/xml_body/user").Test().StatusOK().XML().Exist("user.name").NotExist("user.stuid")
 }
 
 func TestXML_String(t *testing.T) {
@@ -100,19 +100,19 @@ func TestWrongXML_JSON_Empty(t *testing.T) {
 func TestXML_Bind(t *testing.T) {
 	user := new(User)
 	client := NewClient(t).To(Mux)
-	client.Get("/xml_body/user").Send().StatusOK().XML().Bind(user)
+	client.Get("/xml_body/user").Test().StatusOK().XML().Bind(user)
 	assert.Equal(t, user.Id, uint(1))
 	assert.Equal(t, user.Name, "hexi")
 }
 
 func TestMD5_Expect(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Get("/body/user").Send().StatusOK().MD5().Expect(UserDataMD5)
+	client.Get("/body/user").Test().StatusOK().MD5().Expect(UserDataMD5)
 }
 
 func TestSHA1_Expect(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Get("/body/user").Send().StatusOK().SHA1().Expect(UserDataSHA1)
+	client.Get("/body/user").Test().StatusOK().SHA1().Expect(UserDataSHA1)
 }
 
 func UserDataHandler(w http.ResponseWriter, req *http.Request) {

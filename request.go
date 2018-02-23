@@ -27,7 +27,7 @@ func (r *Request) SetHeaders(headers map[string]string) *Request {
 	return r
 }
 
-func (r *Request) Send() *Response {
+func (r *Request) Test() *Response {
 	recorder := httptest.NewRecorder()
 	r.Handler.ServeHTTP(recorder, r.Request)
 	return NewResponse(recorder.Result(), r.T)

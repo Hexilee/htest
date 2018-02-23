@@ -12,7 +12,7 @@ import (
 
 func TestClient_ToFunc(t *testing.T) {
 	client := NewClient(t).ToFunc(NameHandler)
-	client.Get("").Send().StatusOK().JSON().String("name", "hexi")
+	client.Get("").Test().StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_To(t *testing.T) {
@@ -24,32 +24,32 @@ func TestClient_To(t *testing.T) {
 
 func TestClient_Get(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Get("/client/get").Send().StatusOK().JSON().String("name", "hexi")
+	client.Get("/client/get").Test().StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Trace(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Trace("/client/trace").Send().StatusOK().JSON().String("name", "hexi")
+	client.Trace("/client/trace").Test().StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Connect(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Connect("/client/connect").Send().StatusOK().JSON().String("name", "hexi")
+	client.Connect("/client/connect").Test().StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Delete(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Delete("/client/delete").Send().StatusOK().JSON().String("name", "hexi")
+	client.Delete("/client/delete").Test().StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Options(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Options("/client/options").Send().StatusOK().JSON().String("name", "hexi")
+	client.Options("/client/options").Test().StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Head(t *testing.T) {
 	client := NewClient(t).To(Mux)
-	client.Head("/client/head").Send().StatusOK()
+	client.Head("/client/head").Test().StatusOK()
 }
 
 func TestClient_Post(t *testing.T) {
@@ -57,7 +57,7 @@ func TestClient_Post(t *testing.T) {
 	data, _ := json.Marshal(user)
 	dataReader := bytes.NewBuffer(data)
 	client := NewClient(t).To(Mux)
-	client.Post("/client/post", dataReader).Send().StatusOK().Bind(user)
+	client.Post("/client/post", dataReader).Test().StatusOK().Bind(user)
 
 	assert.Equal(t, uint(1), user.Id)
 	assert.Equal(t, "hexi", user.Name)
@@ -68,7 +68,7 @@ func TestClient_Put(t *testing.T) {
 	data, _ := json.Marshal(user)
 	dataReader := bytes.NewBuffer(data)
 	client := NewClient(t).To(Mux)
-	client.Put("/client/put", dataReader).Send().StatusOK().Bind(user)
+	client.Put("/client/put", dataReader).Test().StatusOK().Bind(user)
 
 	assert.Equal(t, uint(1), user.Id)
 	assert.Equal(t, "hexi", user.Name)
@@ -79,7 +79,7 @@ func TestClient_Patch(t *testing.T) {
 	data, _ := json.Marshal(user)
 	dataReader := bytes.NewBuffer(data)
 	client := NewClient(t).To(Mux)
-	client.Patch("/client/patch", dataReader).Send().StatusOK().Bind(user)
+	client.Patch("/client/patch", dataReader).Test().StatusOK().Bind(user)
 
 	assert.Equal(t, uint(1), user.Id)
 	assert.Equal(t, "hexi", user.Name)

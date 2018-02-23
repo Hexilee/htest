@@ -9,10 +9,10 @@ import (
 func TestRequest_SetHeader(t *testing.T) {
 	client := NewClient(t).To(Mux)
 	// bad content type
-	client.Get("/request/header").SetHeader(HeaderContentType, MIMEApplicationForm).Send().StatusBadRequest()
+	client.Get("/request/header").SetHeader(HeaderContentType, MIMEApplicationForm).Test().StatusBadRequest()
 
 	// right
-	body := client.Get("/request/header").SetHeader(HeaderContentType, MIMEApplicationJSON).Send().StatusOK().JSON()
+	body := client.Get("/request/header").SetHeader(HeaderContentType, MIMEApplicationJSON).Test().StatusOK().JSON()
 	body.String("result", "JSON")
 }
 
@@ -23,14 +23,14 @@ func TestRequest_SetHeaders(t *testing.T) {
 		map[string]string{
 			HeaderContentType: MIMEApplicationForm,
 		},
-	).Send().StatusBadRequest()
+	).Test().StatusBadRequest()
 
 	// right
 	body := client.Get("/request/header").SetHeaders(
 		map[string]string{
 			HeaderContentType: MIMEApplicationJSON,
 		},
-	).Send().StatusOK().JSON()
+	).Test().StatusOK().JSON()
 	body.String("result", "JSON")
 }
 
