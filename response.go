@@ -6,6 +6,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"testing"
+	"crypto/md5"
+	"io"
+	"crypto/sha1"
 )
 
 type (
@@ -227,6 +230,24 @@ func (r *Response) String() string {
 	body, err := ioutil.ReadAll(r.Response.Body)
 	assert.Nil(r.T, err)
 	return string(body)
+}
+
+func (r *Response) Expect(expect string) {
+	assert.Equal(r.T, expect, r.String())
+}
+
+func (r *Response) MD5() *MD5 {
+	buf := md5.New()
+	io.Copy(buf, r.Response.Body)
+	result := buf.Sum(nil)
+	return NewMD5(result, r.T)
+}
+
+func (r *Response) SHA1() *SHA1 {
+	buf := sha1.New()
+	io.Copy(buf, r.Response.Body)
+	result := buf.Sum(nil)
+	return NewSHA1(result, r.T)
 }
 
 func (r *Response) Bind(obj interface{}) error {

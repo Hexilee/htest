@@ -22,6 +22,16 @@ type (
 		*JSON
 		body []byte
 	}
+
+	MD5 struct {
+		body []byte
+		*testing.T
+	}
+
+	SHA1 struct {
+		body []byte
+		*testing.T
+	}
 )
 
 func NewJSON(body []byte, t *testing.T) *JSON {
@@ -37,6 +47,20 @@ func NewXML(body []byte, t *testing.T) *XML {
 	return &XML{
 		body: body,
 		JSON: NewJSON(jsonBody, t),
+	}
+}
+
+func NewMD5(body []byte, t *testing.T) *MD5 {
+	return &MD5{
+		body: body,
+		T:    t,
+	}
+}
+
+func NewSHA1(body []byte, t *testing.T) *SHA1 {
+	return &SHA1{
+		body: body,
+		T:    t,
 	}
 }
 
@@ -150,4 +174,22 @@ func (x *XML) Body() []byte {
 
 func (x *XML) Bind(obj interface{}) error {
 	return xml.Unmarshal(x.body, obj)
+}
+
+func (m *MD5) Expect(expect string) *MD5 {
+	assert.Equal(m.T, expect, string(m.body))
+	return m
+}
+
+func (m *MD5) Body() []byte {
+	return m.body
+}
+
+func (s *SHA1) Expect(expect string) *SHA1 {
+	assert.Equal(s.T, expect, string(s.body))
+	return s
+}
+
+func (s *SHA1) Body() []byte {
+	return s.body
 }
