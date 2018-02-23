@@ -11,8 +11,11 @@ import (
 )
 
 func TestClient_ToFunc(t *testing.T) {
-	client := NewClient(t).ToFunc(NameHandler)
-	client.Get("").Test().StatusOK().JSON().String("name", "hexi")
+	NewClient(t).
+		ToFunc(NameHandler).
+		Get("").
+		Test().
+		StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_To(t *testing.T) {
@@ -23,41 +26,63 @@ func TestClient_To(t *testing.T) {
 }
 
 func TestClient_Get(t *testing.T) {
-	client := NewClient(t).To(Mux)
-	client.Get("/client/get").Test().StatusOK().JSON().String("name", "hexi")
+	NewClient(t).
+		To(Mux).
+		Get("/client/get").
+		Test().
+		StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Trace(t *testing.T) {
-	client := NewClient(t).To(Mux)
-	client.Trace("/client/trace").Test().StatusOK().JSON().String("name", "hexi")
+	NewClient(t).
+		To(Mux).
+		Trace("/client/trace").
+		Test().
+		StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Connect(t *testing.T) {
-	client := NewClient(t).To(Mux)
-	client.Connect("/client/connect").Test().StatusOK().JSON().String("name", "hexi")
+	NewClient(t).
+		To(Mux).
+		Connect("/client/connect").
+		Test().
+		StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Delete(t *testing.T) {
-	client := NewClient(t).To(Mux)
-	client.Delete("/client/delete").Test().StatusOK().JSON().String("name", "hexi")
+	NewClient(t).
+		To(Mux).
+		Delete("/client/delete").
+		Test().
+		StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Options(t *testing.T) {
-	client := NewClient(t).To(Mux)
-	client.Options("/client/options").Test().StatusOK().JSON().String("name", "hexi")
+	NewClient(t).
+		To(Mux).
+		Options("/client/options").
+		Test().
+		StatusOK().JSON().String("name", "hexi")
 }
 
 func TestClient_Head(t *testing.T) {
-	client := NewClient(t).To(Mux)
-	client.Head("/client/head").Test().StatusOK()
+	NewClient(t).
+		To(Mux).
+		Head("/client/head").
+		Test().
+		StatusOK()
 }
 
 func TestClient_Post(t *testing.T) {
 	user := &User{Id: 0}
 	data, _ := json.Marshal(user)
 	dataReader := bytes.NewBuffer(data)
-	client := NewClient(t).To(Mux)
-	client.Post("/client/post", dataReader).Test().StatusOK().Bind(user)
+	NewClient(t).
+		To(Mux).
+		Post("/client/post", dataReader).
+		Test().
+		StatusOK().
+		Bind(user)
 
 	assert.Equal(t, uint(1), user.Id)
 	assert.Equal(t, "hexi", user.Name)
@@ -67,8 +92,12 @@ func TestClient_Put(t *testing.T) {
 	user := &User{Id: 0}
 	data, _ := json.Marshal(user)
 	dataReader := bytes.NewBuffer(data)
-	client := NewClient(t).To(Mux)
-	client.Put("/client/put", dataReader).Test().StatusOK().Bind(user)
+	NewClient(t).
+		To(Mux).
+		Put("/client/put", dataReader).
+		Test().
+		StatusOK().
+		Bind(user)
 
 	assert.Equal(t, uint(1), user.Id)
 	assert.Equal(t, "hexi", user.Name)
@@ -78,8 +107,12 @@ func TestClient_Patch(t *testing.T) {
 	user := &User{Id: 0}
 	data, _ := json.Marshal(user)
 	dataReader := bytes.NewBuffer(data)
-	client := NewClient(t).To(Mux)
-	client.Patch("/client/patch", dataReader).Test().StatusOK().Bind(user)
+	NewClient(t).
+		To(Mux).
+		Patch("/client/patch", dataReader).
+		Test().
+		StatusOK().
+		Bind(user)
 
 	assert.Equal(t, uint(1), user.Id)
 	assert.Equal(t, "hexi", user.Name)

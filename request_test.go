@@ -14,39 +14,70 @@ var (
 func TestRequest_SetHeader(t *testing.T) {
 	client := NewClient(t).To(Mux)
 	// bad content type
-	client.Get("/request/header").SetHeader(HeaderContentType, MIMEApplicationForm).Test().StatusBadRequest()
+	client.
+		Get("/request/header").
+		SetHeader(HeaderContentType, MIMEApplicationForm).
+		Test().
+		StatusBadRequest()
 
 	// right
-	body := client.Get("/request/header").SetHeader(HeaderContentType, MIMEApplicationJSON).Test().StatusOK().JSON()
-	body.String("result", "JSON")
+	client.
+		Get("/request/header").
+		SetHeader(HeaderContentType, MIMEApplicationJSON).
+		Test().
+		StatusOK().
+		JSON().
+		String("result", "JSON")
 }
 
 func TestRequest_SetHeaders(t *testing.T) {
 	client := NewClient(t).To(Mux)
 	// bad content type
-	client.Get("/request/header").SetHeaders(
+	client.Get("/request/header").
+		SetHeaders(
 		map[string]string{
 			HeaderContentType: MIMEApplicationForm,
 		},
-	).Test().StatusBadRequest()
+	).
+		Test().
+		StatusBadRequest()
 
 	// right
-	body := client.Get("/request/header").SetHeaders(
+	client.Get("/request/header").
+		SetHeaders(
 		map[string]string{
 			HeaderContentType: MIMEApplicationJSON,
 		},
-	).Test().StatusOK().JSON()
-	body.String("result", "JSON")
+	).
+		Test().
+		StatusOK().
+		JSON().
+		String("result", "JSON")
 }
 
 func TestRequest_Send(t *testing.T) {
-	NewClient(t).Get("https://api.github.com/users/Hexilee").Send().StatusOK().JSON().String("login", "Hexilee")
+	NewClient(t).
+		Get("https://api.github.com/users/Hexilee").
+		Send().
+		StatusOK().
+		JSON().
+		String("login", "Hexilee")
 }
 
 func TestRequest_AddCookie(t *testing.T) {
-	client := NewClient(t).To(Mux)
-	client.Get("/request/cookie").Test().StatusForbidden()
-	client.Get("/request/cookie").AddCookie(&testCookie).Test().StatusOK().JSON().String("cookie", testCookie.String())
+	client := NewClient(t).
+		To(Mux)
+	client.
+		Get("/request/cookie").
+		Test().
+		StatusForbidden()
+	client.
+		Get("/request/cookie").
+		AddCookie(&testCookie).
+		Test().
+		StatusOK().
+		JSON().
+		String("cookie", testCookie.String())
 }
 
 func HeaderHandler(w http.ResponseWriter, req *http.Request) {
