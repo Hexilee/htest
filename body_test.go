@@ -2,7 +2,6 @@ package htest
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/tidwall/gjson"
 	"io"
 	"net/http"
 	"testing"
@@ -20,17 +19,16 @@ const (
 	JSONAssertData = `
 {
 	"number": 1,
-	"time": "2018-2-22 00:00:00",
+	"time": "2018-02-22T00:00:00Z",
 	"ok": true,
 	"no": false,
 }
 `
-	JSONAssertDataTimeStr = "2018-02-22 00:00:00"
-	StandardTime          = "2006-01-02 15:04:05"
+	JSONAssertDataTimeStr = "2018-02-22T00:00:00Z"
 )
 
 var (
-	JSONAssertDataTime, _ = time.Parse(StandardTime, JSONAssertDataTimeStr)
+	JSONAssertDataTime, _ = time.Parse(time.RFC3339, JSONAssertDataTimeStr)
 )
 
 func TestJSON_Exist(t *testing.T) {
@@ -60,7 +58,6 @@ func TestJSON_Uint(t *testing.T) {
 
 func TestJSON_Time(t *testing.T) {
 	NewJSON([]byte(JSONAssertData), t).Time("time", JSONAssertDataTime)
-	t.Logf("Time: %s\n", gjson.Get(`{"time": "2018-02-22 00:00:00"}`, "time").Time())
 }
 
 func TestJSON_Float(t *testing.T) {
