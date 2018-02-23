@@ -30,10 +30,13 @@ func (r *Response) Code(statusCode int) *Response {
 	return r
 }
 
+// http.Response.Status of go 1.9+ is different from former version, so I comment this assert
+/*
 func (r *Response) Status(expect string) *Response {
 	assert.Equal(r.T, expect, r.Response.Status)
 	return r
 }
+*/
 
 func (r *Response) StatusContinue() *Response {
 	return r.Code(http.StatusContinue)
