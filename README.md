@@ -26,7 +26,7 @@
 <h5 id="TestHandlerFunc">Test HandlerFunc</h5>
 
 ```go
-// handler.go
+// example/basic_mock_client.go
 package myapp
 
 import (
@@ -40,7 +40,7 @@ func NameHandler(w http.ResponseWriter, req *http.Request) {
 ```
 
 ```go
-// handler_test.go
+// example/basic_mock_client_test.go
 package myapp
 
 import (
@@ -64,7 +64,7 @@ You can also test handler (*http.ServeMux, *echo.Echo .etc.)
 <h5 id="ToServeMux">To ServeMux</h5>
 
 ```go
-// handler.go
+// example/basic_mock_client.go
 package myapp
 
 import (
@@ -87,7 +87,7 @@ func NameHandler(w http.ResponseWriter, req *http.Request) {
 ```
 
 ```go
-// handler_test.go
+// example/basic_mock_client_test.go
 package myapp
 
 import (
@@ -109,7 +109,7 @@ func TestNameHandler(t *testing.T) {
 <h5 id="ToEcho">To Echo</h5>
 
 ```go
-// handler.go
+// example/basic_mock_client.go
 package myapp
 
 import (
@@ -132,7 +132,7 @@ func NameHandlerEcho(c echo.Context) error {
 ```
 
 ```go
-// handler_test.go
+// example/basic_mock_client_test.go
 package myapp
 
 import (
@@ -156,6 +156,7 @@ func TestNameHandlerEcho(t *testing.T) {
 <h5 id="GithubAPI">Github API</h5>
 
 ```go
+// request_test.go
 func TestRequest_Send(t *testing.T) {
 	NewClient(t).
 		Get("https://api.github.com/users/Hexilee").
