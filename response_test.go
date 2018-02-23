@@ -1,6 +1,8 @@
 package htest
 
 import (
+	"crypto/md5"
+	"crypto/sha1"
 	"fmt"
 	"github.com/go-chi/chi"
 	"github.com/stretchr/testify/assert"
@@ -33,11 +35,22 @@ const (
 var (
 	ResponseCodeServer    = chi.NewRouter()
 	ResponseHeadersServer = chi.NewRouter()
+	UserDataMD5           string
+	UserDataSHA1          string
 )
 
 func init() {
 	ResponseCodeServer.Get("/response/statusCode/{code}", StatusHandler)
 	ResponseHeadersServer.Get("/response/headers", HeadersHandler)
+
+	UserMD5 := md5.New()
+	UserMD5.Write([]byte(UserData))
+	UserDataMD5 = string(UserMD5.Sum(nil))
+
+	UserSHA1 := sha1.New()
+	UserSHA1.Write([]byte(UserData))
+	UserDataSHA1 = string(UserSHA1.Sum(nil))
+
 }
 
 func TestResponse_String(t *testing.T) {
@@ -48,6 +61,11 @@ func TestResponse_String(t *testing.T) {
 func TestResponse_Bytes(t *testing.T) {
 	client := NewClient(t).To(Mux)
 	assert.Equal(t, []byte(UserData), client.Get("/body/user").Send().StatusOK().Bytes())
+}
+
+func TestResponse_Expect(t *testing.T) {
+	client := NewClient(t).To(Mux)
+	client.Get("/body/user").Send().StatusOK().Expect(UserData)
 }
 
 func TestResponse_Bind(t *testing.T) {

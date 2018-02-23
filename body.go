@@ -177,7 +177,7 @@ func (x *XML) Bind(obj interface{}) error {
 }
 
 func (m *MD5) Expect(expect string) *MD5 {
-	assert.Equal(m.T, expect, string(m.body))
+	assert.Equal(m.T, expect, string(m.Body()))
 	return m
 }
 
@@ -186,7 +186,7 @@ func (m *MD5) Body() []byte {
 }
 
 func (s *SHA1) Expect(expect string) *SHA1 {
-	assert.Equal(s.T, expect, string(s.body))
+	assert.Equal(s.T, expect, string(s.Body()))
 	return s
 }
 

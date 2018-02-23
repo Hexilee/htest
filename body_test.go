@@ -105,6 +105,16 @@ func TestXML_Bind(t *testing.T) {
 	assert.Equal(t, user.Name, "hexi")
 }
 
+func TestMD5_Expect(t *testing.T) {
+	client := NewClient(t).To(Mux)
+	client.Get("/body/user").Send().StatusOK().MD5().Expect(UserDataMD5)
+}
+
+func TestSHA1_Expect(t *testing.T) {
+	client := NewClient(t).To(Mux)
+	client.Get("/body/user").Send().StatusOK().SHA1().Expect(UserDataSHA1)
+}
+
 func UserDataHandler(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, UserData)
 }
