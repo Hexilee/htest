@@ -1,14 +1,14 @@
 package htest
 
 import (
+	"crypto/md5"
+	"crypto/sha1"
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"testing"
-	"crypto/md5"
-	"io"
-	"crypto/sha1"
 )
 
 type (
@@ -210,24 +210,28 @@ func (r *Response) StatusNetworkAuthenticationRequired() *Response {
 
 func (r *Response) JSON() *JSON {
 	body, err := ioutil.ReadAll(r.Response.Body)
+	r.Response.Body.Close()
 	assert.Nil(r.T, err)
 	return NewJSON(body, r.T)
 }
 
 func (r *Response) XML() *XML {
 	body, err := ioutil.ReadAll(r.Response.Body)
+	r.Response.Body.Close()
 	assert.Nil(r.T, err)
 	return NewXML(body, r.T)
 }
 
 func (r *Response) Bytes() []byte {
 	body, err := ioutil.ReadAll(r.Response.Body)
+	r.Response.Body.Close()
 	assert.Nil(r.T, err)
 	return body
 }
 
 func (r *Response) String() string {
 	body, err := ioutil.ReadAll(r.Response.Body)
+	r.Response.Body.Close()
 	assert.Nil(r.T, err)
 	return string(body)
 }
@@ -239,6 +243,7 @@ func (r *Response) Expect(expect string) {
 func (r *Response) MD5() *MD5 {
 	buf := md5.New()
 	io.Copy(buf, r.Response.Body)
+	r.Response.Body.Close()
 	result := buf.Sum(nil)
 	return NewMD5(result, r.T)
 }
@@ -246,12 +251,14 @@ func (r *Response) MD5() *MD5 {
 func (r *Response) SHA1() *SHA1 {
 	buf := sha1.New()
 	io.Copy(buf, r.Response.Body)
+	r.Response.Body.Close()
 	result := buf.Sum(nil)
 	return NewSHA1(result, r.T)
 }
 
 func (r *Response) Bind(obj interface{}) error {
 	body, err := ioutil.ReadAll(r.Response.Body)
+	r.Response.Body.Close()
 	assert.Nil(r.T, err)
 	return json.Unmarshal(body, obj)
 }
