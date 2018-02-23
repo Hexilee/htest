@@ -34,6 +34,10 @@ func TestRequest_SetHeaders(t *testing.T) {
 	body.String("result", "JSON")
 }
 
+func TestRequest_Send(t *testing.T) {
+	NewClient(t).Get("https://api.github.com/users/Hexilee").Send().StatusOK().JSON().String("login", "Hexilee")
+}
+
 func HeaderHandler(w http.ResponseWriter, req *http.Request) {
 	if req.Header.Get(HeaderContentType) == MIMEApplicationJSON {
 		io.WriteString(w, `{"result": "JSON"}`)

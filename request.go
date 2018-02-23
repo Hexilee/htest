@@ -1,6 +1,7 @@
 package htest
 
 import (
+	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -31,4 +32,10 @@ func (r *Request) Test() *Response {
 	recorder := httptest.NewRecorder()
 	r.Handler.ServeHTTP(recorder, r.Request)
 	return NewResponse(recorder.Result(), r.T)
+}
+
+func (r *Request) Send() *Response {
+	resp, err := (&http.Client{}).Do(r.Request)
+	assert.Nil(r.T, err)
+	return NewResponse(resp, r.T)
 }
