@@ -1,5 +1,5 @@
 hash: e8cc3d08ee2b5091efc328931a9fe869010be26ce96f7f0c4587117feba59877
-updated: 2018-02-22T21:38:58.375766+08:00
+updated: 2018-02-24T00:16:26.361545+08:00
 imports:
 - name: github.com/labstack/echo
   version: b338075a0fc6e1a0683dbf03d09b4957a289e26f
@@ -31,7 +31,7 @@ testImports:
   subpackages:
   - spew
 - name: github.com/Hexilee/htest
-  version: a6c0d76a97b8e58295d1c7ce51302c0ad0d8f8a4
+  version: 160265b4f8fb47293a2a07d1933b4fa621f79c1a
 - name: github.com/pmezard/go-difflib
   version: 792786c7400a136282c1664665ae0a8db921c6c2
   subpackages:
@@ -41,6 +41,6 @@ testImports:
   subpackages:
   - assert
 - name: github.com/tidwall/gjson
-  version: 87033efcaec6215741137e8ca61952c53ef2685d
+  version: 01f00f129617a6fe98941fb920d6c760241b54d2
 - name: github.com/tidwall/match
   version: 1731857f09b1f38450e2c12409748407822dc6be

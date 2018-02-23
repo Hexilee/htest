@@ -1,5 +1,5 @@
 hash: fb25df77bed6357c604cb04069066563408d37a500d5a356b1ba8598527f073e
-updated: 2018-02-22T22:39:23.563235+08:00
+updated: 2018-02-24T00:03:08.829291+08:00
 imports:
 - name: github.com/basgys/goxml2json
   version: 652b277a9313806ef04f7c0cb0205dd455c4f344
@@ -29,7 +29,7 @@ imports:
   subpackages:
   - assert
 - name: github.com/tidwall/gjson
-  version: 87033efcaec6215741137e8ca61952c53ef2685d
+  version: 01f00f129617a6fe98941fb920d6c760241b54d2
 - name: github.com/tidwall/match
   version: 1731857f09b1f38450e2c12409748407822dc6be
 - name: github.com/valyala/bytebufferpool

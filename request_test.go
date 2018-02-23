@@ -35,20 +35,20 @@ func TestRequest_SetHeaders(t *testing.T) {
 	// bad content type
 	client.Get("/request/header").
 		SetHeaders(
-		map[string]string{
-			HeaderContentType: MIMEApplicationForm,
-		},
-	).
+			map[string]string{
+				HeaderContentType: MIMEApplicationForm,
+			},
+		).
 		Test().
 		StatusBadRequest()
 
 	// right
 	client.Get("/request/header").
 		SetHeaders(
-		map[string]string{
-			HeaderContentType: MIMEApplicationJSON,
-		},
-	).
+			map[string]string{
+				HeaderContentType: MIMEApplicationJSON,
+			},
+		).
 		Test().
 		StatusOK().
 		JSON().

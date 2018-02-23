@@ -6,9 +6,23 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Hexilee/htest/blob/master/LICENSE)
 [![Documentation](https://godoc.org/github.com/Hexilee/htest?status.svg)](https://godoc.org/github.com/Hexilee/htest)
 
-### Usage
+## Contents
 
-#### Test HandlerFunc
+- [Basic Usage](#BasicUsage)
+    - [As MockClient](#AsMockClient)
+        - [Test HandlerFunc](#TestHandlerFunc)
+        - [To ServeMux](##### To ServeMux)
+    - As RealClient
+
+<h3 id="BasicUsage">Basic Usage</h3>
+
+-----------------
+
+<h4 id="AsMockClient">As MockClient</h4>
+
+=================
+
+<h5 id="TestHandlerFunc">Test HandlerFunc</h5>
 
 ```go
 // handler.go
@@ -34,15 +48,19 @@ import (
 )
 
 func TestNameHandlerFunc(t *testing.T) {
-	client := htest.NewClient(t).ToFunc(NameHandler)
-	body := client.Get("").Test().StatusOK().JSON()
-	body.String("name", "hexi")
+	htest.NewClient(t).
+		ToFunc(NameHandler).
+		Get("").
+		Test().
+		StatusOK().
+		JSON().
+		String("name", "hexi")
 }
 ```
 
 You can also test handler (*http.ServeMux, *echo.Echo .etc.)
 
-#### To ServeMux
+<h5 id="ToServeMux">To ServeMux</h5>
 
 ```go
 // handler.go
@@ -77,13 +95,17 @@ import (
 )
 
 func TestNameHandler(t *testing.T) {
-	client := htest.NewClient(t).To(Mux)
-	body := client.Get("/name").Test().StatusOK().JSON()
-	body.String("name", "hexi")
+	htest.NewClient(t).
+		To(Mux).
+		Get("/name").
+		Test().
+		StatusOK().
+		JSON().
+		String("name", "hexi")
 }
 ```
 
-#### To Echo
+##### To Echo
 
 ```go
 // handler.go
@@ -118,7 +140,13 @@ import (
 )
 
 func TestNameHandlerEcho(t *testing.T) {
-	client := htest.NewClient(t).To(server)
-	client.Get("/name").Test().StatusOK().JSON().String("name", "hexi")
+	htest.NewClient(t).
+		To(server).
+		Get("/name").
+		Test().
+		StatusOK().
+		JSON().
+		String("name", "hexi")
 }
 ```
+
