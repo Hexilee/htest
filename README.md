@@ -11,8 +11,10 @@
 - [Basic Usage](#BasicUsage)
     - [As MockClient](#AsMockClient)
         - [Test HandlerFunc](#TestHandlerFunc)
-        - [To ServeMux](##### To ServeMux)
-    - As RealClient
+        - [To ServeMux](#ToServeMux)
+        - [To Echo](#ToEcho)
+    - [As RealClient](#AsRealClient)
+        - [Github API](#GithubAPI)
 
 <h3 id="BasicUsage">Basic Usage</h3>
 
@@ -20,7 +22,6 @@
 
 <h4 id="AsMockClient">As MockClient</h4>
 
-=================
 
 <h5 id="TestHandlerFunc">Test HandlerFunc</h5>
 
@@ -105,7 +106,7 @@ func TestNameHandler(t *testing.T) {
 }
 ```
 
-##### To Echo
+<h5 id="ToEcho">To Echo</h5>
 
 ```go
 // handler.go
@@ -147,6 +148,21 @@ func TestNameHandlerEcho(t *testing.T) {
 		StatusOK().
 		JSON().
 		String("name", "hexi")
+}
+```
+
+<h4 id="AsRealClient">As RealClient</h4>
+
+<h5 id="GithubAPI">Github API</h5>
+
+```go
+func TestRequest_Send(t *testing.T) {
+	NewClient(t).
+		Get("https://api.github.com/users/Hexilee").
+		Send().
+		StatusOK().
+		JSON().
+		String("login", "Hexilee")
 }
 ```
 
