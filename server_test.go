@@ -24,6 +24,7 @@ func init() {
 	Mux.Patch("/client/patch", ClientDataHandler)
 	Mux.Post("/client/patch", ClientDataHandler)
 	Mux.Get("/request/header", HeaderHandler)
+	Mux.Get("/request/cookie", CookieHandler)
 	Mux.Get("/body/user", UserDataHandler)
 	Mux.Get("/xml_body/user", UserDataXMLHandler)
 }

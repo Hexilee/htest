@@ -39,3 +39,8 @@ func (r *Request) Send() *Response {
 	assert.Nil(r.T, err)
 	return NewResponse(resp, r.T)
 }
+
+func (r *Request) AddCookie(cookie *http.Cookie) *Request {
+	r.Request.AddCookie(cookie)
+	return r
+}
