@@ -30,6 +30,11 @@ func (r *Response) Code(statusCode int) *Response {
 	return r
 }
 
+func (r *Response) Status(expect string) *Response {
+	assert.Equal(r.T, expect, r.Response.Status)
+	return r
+}
+
 func (r *Response) StatusContinue() *Response {
 	return r.Code(http.StatusContinue)
 }

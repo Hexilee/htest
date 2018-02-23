@@ -87,6 +87,12 @@ func TestResponse_Headers(t *testing.T) {
 	client.Get(url).Test().Headers(HeaderContentType, MIMEApplicationJSON)
 }
 
+func TestResponse_Status(t *testing.T) {
+	client := NewClient(t).To(ResponseCodeServer)
+	// Status = 100 Continue
+	client.Get(fmt.Sprintf("/response/statusCode/%d", http.StatusContinue)).Test().Status(fmt.Sprintf("%d %s", http.StatusContinue, http.StatusText(http.StatusContinue)))
+}
+
 func TestResponse_StatusContinue(t *testing.T) {
 	client := NewClient(t).To(ResponseCodeServer)
 	client.Get(fmt.Sprintf("/response/statusCode/%d", http.StatusContinue)).Test().StatusContinue()
