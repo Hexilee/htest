@@ -24,11 +24,29 @@ const (
 	"no": false,
 }
 `
-	JSONAssertDataTimeStr = "2018-02-22T00:00:00Z"
+	XMLAssertData = `
+<data>
+	<Number>1</Number>
+	<Time>2018-02-22T00:00:00Z</Time>
+	<OK>true</OK>
+	<NO>false</NO>
+</data>
+`
+
+	AssertDataTimeStr = "2018-02-22T00:00:00Z"
 )
 
 var (
-	JSONAssertDataTime, _ = time.Parse(time.RFC3339, JSONAssertDataTimeStr)
+	AssertDataTime, _ = time.Parse(time.RFC3339, AssertDataTimeStr)
+)
+
+type (
+	AssertStruct struct {
+		Number int       `json:"number" xml:"Number"`
+		Time   time.Time `json:"time" xml:"Time"`
+		OK     bool      `json:"ok" xml:"OK"`
+		NO     bool      `json:"no" xml:"NO"`
+	}
 )
 
 func TestJSON_Exist(t *testing.T) {
@@ -37,7 +55,7 @@ func TestJSON_Exist(t *testing.T) {
 }
 
 func TestJSON_String(t *testing.T) {
-	NewJSON([]byte(JSONAssertData), t).String("time", JSONAssertDataTimeStr)
+	NewJSON([]byte(JSONAssertData), t).String("time", AssertDataTimeStr)
 }
 
 func TestJSON_Int(t *testing.T) {
@@ -57,7 +75,7 @@ func TestJSON_Uint(t *testing.T) {
 }
 
 func TestJSON_Time(t *testing.T) {
-	NewJSON([]byte(JSONAssertData), t).Time("time", JSONAssertDataTime)
+	NewJSON([]byte(JSONAssertData), t).Time("time", AssertDataTime)
 }
 
 func TestJSON_Float(t *testing.T) {
@@ -82,7 +100,31 @@ func TestXML_Exist(t *testing.T) {
 }
 
 func TestXML_String(t *testing.T) {
-	NewXML([]byte(UserDataXML), t).String("user.name", "hexi")
+	NewXML([]byte(XMLAssertData), t).String("data.Time", AssertDataTimeStr)
+}
+
+func TestXML_Int(t *testing.T) {
+	NewXML([]byte(XMLAssertData), t).Int("data.Number", int64(1))
+}
+
+func TestXML_True(t *testing.T) {
+	NewXML([]byte(XMLAssertData), t).True("data.OK")
+}
+
+func TestXML_False(t *testing.T) {
+	NewXML([]byte(XMLAssertData), t).False("data.NO")
+}
+
+func TestXML_Uint(t *testing.T) {
+	NewXML([]byte(XMLAssertData), t).Uint("data.Number", uint64(1))
+}
+
+func TestXML_Time(t *testing.T) {
+	NewXML([]byte(XMLAssertData), t).Time("data.Time", AssertDataTime)
+}
+
+func TestXML_Float(t *testing.T) {
+	NewXML([]byte(XMLAssertData), t).Float("data.Number", float64(1))
 }
 
 func TestXML_Empty(t *testing.T) {
@@ -91,6 +133,26 @@ func TestXML_Empty(t *testing.T) {
 
 func TestXML_NotEmpty(t *testing.T) {
 	NewXML([]byte(WrongXMLData), t).NotEmpty()
+}
+
+// TO assure methods of XML never return JSON
+func TestXML_Bind_After_Assert(t *testing.T) {
+	data := new(AssertStruct)
+	NewXML([]byte(XMLAssertData), t).
+		Exist("data.Time").
+		String("data.Time", AssertDataTimeStr).
+		Int("data.Number", int64(1)).
+		True("data.OK").
+		False("data.NO").
+		Uint("data.Number", uint64(1)).
+		Time("data.Time", AssertDataTime).
+		Float("data.Number", float64(1)).
+		NotEmpty().
+		Bind(data)
+	assert.Equal(t, 1, data.Number)
+	assert.Equal(t, AssertDataTime, data.Time)
+	assert.True(t, data.OK)
+	assert.False(t, data.NO)
 }
 
 func TestWrongXML_JSON_Empty(t *testing.T) {

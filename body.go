@@ -158,6 +158,36 @@ func (x *XML) String(key, expect string) *XML {
 	return x
 }
 
+func (x *XML) Int(key string, expect int64) *XML {
+	x.JSON.Int(key, expect)
+	return x
+}
+
+func (x *XML) True(key string) *XML {
+	x.JSON.True(key)
+	return x
+}
+
+func (x *XML) False(key string) *XML {
+	x.JSON.False(key)
+	return x
+}
+
+func (x *XML) Uint(key string, expect uint64) *XML {
+	x.JSON.Uint(key, expect)
+	return x
+}
+
+func (x *XML) Time(key string, expect time.Time) *XML {
+	x.JSON.Time(key, expect)
+	return x
+}
+
+func (x *XML) Float(key string, expect float64) *XML {
+	x.JSON.Float(key, expect)
+	return x
+}
+
 func (x *XML) Empty() *XML {
 	assert.Equal(x.T, "", string(x.Body()))
 	return x
