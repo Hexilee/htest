@@ -9,18 +9,46 @@
 ## Contents
 
 - [Basic Usage](#BasicUsage)
-    - [As MockClient](#AsMockClient)
+    - [Test MockServer](#TestMockServer)
         - [Test HandlerFunc](#TestHandlerFunc)
         - [To ServeMux](#ToServeMux)
         - [To Echo](#ToEcho)
-    - [As RealClient](#AsRealClient)
+    - [Test RealServer](#TestRealServer)
         - [Github API](#GithubAPI)
+- [Client](#Client)
+    - [Set MockServer](#SetMockServer)
+        - [HandlerFunc](#HandlerFunc)
+        - [Handler](#Handler)
+    - [Construct Request](#ConstructRequest)
+        - [Http Methods](#HttpMethods)
+- [Request](#Request)
+    - [Set Headers](#SetHeaders)
+    - [Add Cookie](#AddCookie)
+    - [Test](#Test)
+    - [Send](#Send)
+    - [As http.Request](#Ashttp.Request)
+- [Response](#Response)
+    - [Assert StatusCode](#AssertStatusCode)
+        - [Code](#Code)
+        - [StatusXXX](#StatusXXX)
+    - [Assert Headers](#AssertHeaders)
+        - [Headers](#Headers)
+        - [HeaderXXX](#HeaderXXX)
+    - [Assert Body](#AssertBody)
+    - [Get Body](#GetBody)
+        - [Body Type](#BodyType)
+    - [As http.Response](#Ashttp.Response)
+- [Body](#Body)
+    - [JSON](#JSON)
+    - [XML](#XML)
+    - [MD5](#MD5)
+    - [SHA1](#SHA1)
 
 <h3 id="BasicUsage">Basic Usage</h3>
 
 -----------------
 
-<h4 id="AsMockClient">As MockClient</h4>
+<h4 id="TestMockServer">Test MockServer</h4>
 
 
 <h5 id="TestHandlerFunc">Test HandlerFunc</h5>
@@ -151,7 +179,7 @@ func TestNameHandlerEcho(t *testing.T) {
 }
 ```
 
-<h4 id="AsRealClient">As RealClient</h4>
+<h4 id="TestRealServer">Test RealServer</h4>
 
 <h5 id="GithubAPI">Github API</h5>
 
