@@ -50,6 +50,7 @@
 
 <h4 id="TestMockServer">Test MockServer</h4>
 
+> Test a Handler or a HandlerFunc
 
 <h5 id="TestHandlerFunc">Test HandlerFunc</h5>
 
@@ -180,6 +181,7 @@ func TestNameHandlerEcho(t *testing.T) {
 ```
 
 <h4 id="TestRealServer">Test RealServer</h4>
+> Send a http request and test the response
 
 <h5 id="GithubAPI">Github API</h5>
 
