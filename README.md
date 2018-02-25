@@ -6,53 +6,56 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Hexilee/htest/blob/master/LICENSE)
 [![Documentation](https://godoc.org/github.com/Hexilee/htest?status.svg)](https://godoc.org/github.com/Hexilee/htest)
 
-## Contents
 
-- [Basic Usage](#BasicUsage)
-    - [Test MockServer](#TestMockServer)
-        - [Test HandlerFunc](#TestHandlerFunc)
-        - [To ServeMux](#ToServeMux)
-        - [To Echo](#ToEcho)
-    - [Test RealServer](#TestRealServer)
-        - [Github API](#GithubAPI)
-- [Client](#Client)
-    - [Set MockServer](#SetMockServer)
-        - [HandlerFunc](#HandlerFunc)
-        - [Handler](#Handler)
-    - [Construct Request](#ConstructRequest)
-        - [Http Methods](#HttpMethods)
-- [Request](#Request)
-    - [Set Headers](#SetHeaders)
-    - [Add Cookie](#AddCookie)
-    - [Test](#Test)
-    - [Send](#Send)
-    - [As http.Request](#Ashttp.Request)
-- [Response](#Response)
-    - [Assert StatusCode](#AssertStatusCode)
-        - [Code](#Code)
-        - [StatusXXX](#StatusXXX)
-    - [Assert Headers](#AssertHeaders)
-        - [Headers](#Headers)
-        - [HeaderXXX](#HeaderXXX)
-    - [Assert Body](#AssertBody)
-    - [Get Body](#GetBody)
-        - [Body Type](#BodyType)
-    - [As http.Response](#Ashttp.Response)
-- [Body](#Body)
-    - [JSON](#JSON)
-    - [XML](#XML)
-    - [MD5](#MD5)
-    - [SHA1](#SHA1)
+Table of Contents
+=================
 
-<h3 id="BasicUsage">Basic Usage</h3>
+* [Basic Usage](#basic-usage)
+  * [Test MockServer](#test-mockserver)
+     * [Test HandlerFunc](#test-handlerfunc)
+     * [To ServeMux](#to-servemux)
+     * [To Echo](#to-echo)
+  * [Test RealServer](#test-realserver)
+     * [Github API](#github-api)
+* [Client](#client)
+  * [Set MockServer](#set-mockserver)
+     * [HandlerFunc](#handlerfunc)
+     * [Handler](#handler)
+  * [Construct Request](#construct-request)
+     * [Http Methods](#http-methods)
+* [Request](#request)
+  * [Set Headers](#set-headers)
+  * [Add Cookie](#add-cookie)
+  * [Test](#test)
+  * [Send](#send)
+  * [As http.Request](#as-httprequest)
+* [Response](#response)
+  * [Assert StatusCode](#assert-statuscode)
+     * [Code](#code)
+     * [StatusXXX](#statusxxx)
+  * [Assert Headers](#assert-headers)
+     * [Headers](#headers)
+     * [HeaderXXX](#headerxxx)
+  * [Assert Body](#assert-body)
+  * [Get Body](#get-body)
+     * [Body Types](#body-types)
+  * [As http.Response](#as-httpresponse)
+* [Body](#body)
+  * [JSON](#json)
+  * [XML](#xml)
+  * [MD5](#md5)
+  * [SHA1](#sha1)
+
+
+### Basic Usage
 
 -----------------
 
-<h4 id="TestMockServer">Test MockServer</h4>
+#### Test MockServer
 
 > Test a Handler or a HandlerFunc
 
-<h5 id="TestHandlerFunc">Test HandlerFunc</h5>
+##### Test HandlerFunc
 
 ```go
 // example/basic_mock_client.go
@@ -90,7 +93,7 @@ func TestNameHandlerFunc(t *testing.T) {
 
 You can also test handler (*http.ServeMux, *echo.Echo .etc.)
 
-<h5 id="ToServeMux">To ServeMux</h5>
+##### To ServeMux
 
 ```go
 // example/basic_mock_client.go
@@ -135,7 +138,7 @@ func TestNameHandler(t *testing.T) {
 }
 ```
 
-<h5 id="ToEcho">To Echo</h5>
+##### To Echo
 
 ```go
 // example/basic_mock_client.go
@@ -180,10 +183,11 @@ func TestNameHandlerEcho(t *testing.T) {
 }
 ```
 
-<h4 id="TestRealServer">Test RealServer</h4>
+#### Test RealServer
+
 > Send a http request and test the response
 
-<h5 id="GithubAPI">Github API</h5>
+##### Github API
 
 ```go
 // request_test.go
@@ -196,4 +200,46 @@ func TestRequest_Send(t *testing.T) {
 		String("login", "Hexilee")
 }
 ```
+
+
+### Client
+
+-------
+
+#### Set MockServer
+##### HandlerFunc
+##### Handler
+#### Construct Request
+##### Http Methods
+
+### Request
+
+-------
+
+#### Set Headers
+#### Add Cookie
+#### Test
+#### Send
+#### As http.Request
+
+### Response
+
+-------
+
+#### Assert StatusCode
+##### Code
+##### StatusXXX
+#### Assert Headers
+##### Headers
+##### HeaderXXX
+#### Assert Body
+#### Get Body
+##### Body Types
+#### As http.Response
+### Body
+#### JSON
+#### XML
+#### MD5
+#### SHA1
+
 
