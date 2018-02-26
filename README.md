@@ -45,6 +45,7 @@ Table of Contents
   * [XML](#xml)
   * [MD5](#md5)
   * [SHA1](#sha1)
+* [Appendix](#appendix)
 
 
 ### Basic Usage
@@ -207,18 +208,210 @@ func TestRequest_Send(t *testing.T) {
 -------
 
 #### Set MockServer
+
+> Set mock server to be tested (Do not need it when you test real server)
+
 ##### HandlerFunc
+
+> Set a HandlerFunc as mock server
+
+```go
+// example/basic_mock_client_test.go
+package myapp
+
+import (
+	"testing"
+	"github.com/Hexilee/htest"
+)
+
+func TestNameHandlerFunc(t *testing.T) {
+	htest.NewClient(t).
+		ToFunc(NameHandler).
+		Get("").
+		Test().
+		StatusOK().
+		JSON().
+		String("name", "hexi")
+}
+```
+
 ##### Handler
+
+> Set a Handler as mock server
+
+```go
+// example/basic_mock_client_test.go
+package myapp
+
+import (
+	"testing"
+	"github.com/Hexilee/htest"
+)
+
+func TestNameHandler(t *testing.T) {
+	htest.NewClient(t).
+		To(Mux).
+		Get("/name").
+		Test().
+		StatusOK().
+		JSON().
+		String("name", "hexi")
+}
+```
+
 #### Construct Request
+
+> Construct htest.Request using different http methods
+
 ##### Http Methods
+
+> For example
+
+- Get
+
+```go
+// client.go
+func (c Client) Get(path string) *Request
+```
+
+> More
+
+- Head
+- Trace
+- Options
+- Connect
+- Delete
+- Post
+- Put
+- Patch
 
 ### Request
 
 -------
 
 #### Set Headers
+
+> Set headers and return *Request for chaining-call
+
+- SetHeader
+
+```go
+// server_test.go
+
+Mux.Get("/request/header", HeaderHandler)
+
+// request_test.go
+
+func HeaderHandler(w http.ResponseWriter, req *http.Request) {
+	if req.Header.Get(HeaderContentType) == MIMEApplicationJSON {
+		io.WriteString(w, `{"result": "JSON"}`)
+		return
+	}
+	http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+}
+
+func TestRequest_SetHeader(t *testing.T) {
+	client := NewClient(t).To(Mux)
+	// bad content type
+	client.
+		Get("/request/header").
+		SetHeader(HeaderContentType, MIMEApplicationForm).
+		Test().
+		StatusBadRequest()
+
+	// right
+	client.
+		Get("/request/header").
+		SetHeader(HeaderContentType, MIMEApplicationJSON).
+		Test().
+		StatusOK().
+		JSON().
+		String("result", "JSON")
+}
+```
+
+> HeaderContentType, MIMEApplicationForm are constants in const.go
+> For more information, you can refer to [Appendix](#appendix)
+ 
+
+- SetHeaders
+
+```go
+// request_test.go
+
+func TestRequest_SetHeaders(t *testing.T) {
+	client := NewClient(t).To(Mux)
+	// bad content type
+	client.Get("/request/header").
+		SetHeaders(
+			map[string]string{
+				HeaderContentType: MIMEApplicationForm,
+			},
+		).
+		Test().
+		StatusBadRequest()
+
+	// right
+	client.Get("/request/header").
+		SetHeaders(
+			map[string]string{
+				HeaderContentType: MIMEApplicationJSON,
+			},
+		).
+		Test().
+		StatusOK().
+		JSON().
+		String("result", "JSON")
+}
+```
+
 #### Add Cookie
+
+> Add cookie and return *Request for chaining-call
+
+```go
+// server_test.go
+
+Mux.Get("/request/cookie", CookieHandler)
+
+// request_test.go
+
+var (
+	testCookie = http.Cookie{Name: "test_cookie", Value: "cookie_value"}
+)
+
+func CookieHandler(w http.ResponseWriter, req *http.Request) {
+	cookie, err := req.Cookie(testCookie.Name)
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
+		return
+	}
+	io.WriteString(w, fmt.Sprintf(`{"cookie": "%s"}`, cookie))
+}
+
+
+func TestRequest_AddCookie(t *testing.T) {
+	client := NewClient(t).
+		To(Mux)
+	client.
+		Get("/request/cookie").
+		Test().
+		StatusForbidden()
+	client.
+		Get("/request/cookie").
+		AddCookie(&testCookie).
+		Test().
+		StatusOK().
+		JSON().
+		String("cookie", testCookie.String())
+}
+```
+
 #### Test
+
+> Calling *Request.Test will test the mock server
+> You must have called Client.To or Client.ToFunc, otherwise causing a panic (htest.MockNilError)
+
 #### Send
 #### As http.Request
 
@@ -241,5 +434,8 @@ func TestRequest_Send(t *testing.T) {
 #### XML
 #### MD5
 #### SHA1
+
+### Appendix
+
 
 

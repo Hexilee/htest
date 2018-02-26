@@ -2,6 +2,7 @@ package htest
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"io"
 	"net/http"
 	"testing"
@@ -53,6 +54,18 @@ func TestRequest_SetHeaders(t *testing.T) {
 		StatusOK().
 		JSON().
 		String("result", "JSON")
+}
+
+func TestRequest_Test(t *testing.T) {
+	defer func() {
+		assert.Equal(t, MockNilError, recover())
+	}()
+
+	NewClient(t).
+		Get("/request/header").
+		SetHeader(HeaderContentType, MIMEApplicationForm).
+		Test().
+		StatusBadRequest()
 }
 
 func TestRequest_Send(t *testing.T) {
