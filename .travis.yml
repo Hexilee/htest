@@ -4,27 +4,27 @@ sudo: false # 开启基于容器的Travis CI任务，让编译效率更高。
 notifications: # 每次构建的时候是否通知，如果不想收到通知，那就设置false吧(email: false)
   email:
     recipients:
-      - hexileee@gmail.com
+    - hexileee@gmail.com
   on_success: change
   on_failure: always
 
 go:
-  - "1.11"
+- "1.11"
 
 install:
-  - go build
-  - go get github.com/mattn/goveralls
+- env GO111MODULE=on go build
+- go mod vendor
+- go get github.com/mattn/goveralls
+
 
 script: # 集成脚本
-  - go test -v -cover -coverprofile=htest.coverprofile
-  - goveralls -coverprofile=htest.coverprofile -service=travis-ci -repotoken $COVERALLS_TOKEN
+- go test -v -cover -coverprofile=htest.coverprofile
+- goveralls -coverprofile=htest.coverprofile -service=travis-ci -repotoken $COVERALLS_TOKEN
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
 
 env: #env环境变量设置，travis提供的repo_token安全方式
   global:
     secure: "n/DHx2qPJy4GDZrQXxhEhzpZsWlWJMOpj1+NKBHMDhXN4UkurVMJLPTbwhCfoEpq63qt2a+KU9AxehrXXsqcdnfT4Emq+r1xCP1aXJXYhyw9NEhHzkZjSLGY7kRh83hqpwat1lPx+dzfP1omrc8ducxAFmckL0/CZKBZoOoeGZ1gXAQaDB2GZnzKtn4L1vhn7ppFIn3oy1GMYjlO/dOHJ4HY8Y18HKXpSDnQezPRRh8MkPMKRORhn3HDwfk1zZVh4CYjVswxo8MvwZjXuCXkZaDkp0J6dmar2LMnxNI1tqou92Bt4XFfWDivvakcKFQfrxCoHCXcloAO2AetG/VNSnUgtMA/8CKZ6uQkGdbXvcYJexX9VvJTVaijCwaULiu+L8KaGh2Re1R3qQuI4fd1HUe3cwtvbnWxQiOMhrtYu9UyUR87UpXeaxPg2eGAVY/nW0T0VLhBhK4nvDqitYCDNK+nS42z35ZyH8jKaMCuh7r/GbYvmjQBwbiQaJvFGde9GXNsJ4c4Zvpt18JyrG88iFkXobYFVl4PWo0neEDfexznms0iDmWlccg+1Gb7qhMMf6VL2H0y8CUC9vaw8Y1qzUT6Lp4Xy7CvbsaBz+0Mmy/c93FqW0Y12NNYXZ5I7bQoCDrjXl1GiSPx+CyssGk4ROIeSwipRn4V+mTa3+/N8dU="
-  - GO111MODULE=on
-
 
