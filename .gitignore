@@ -2,3 +2,4 @@ vendor/
 example/vendor/
 *.coverprofile
 coverage.*
+.idea/
